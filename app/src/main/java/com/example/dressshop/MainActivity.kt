@@ -10,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.dressshop.presentation.screens.ListDressesScreen
+import com.example.dressshop.presentation.ui.MainScreen
 import com.example.dressshop.ui.theme.DressShopTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    //Greeting("Android")
+                    MainScreen()
                 }
             }
         }
@@ -38,6 +41,7 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     DressShopTheme {
-        Greeting("Android")
+       // Greeting("Android")
+        MainScreen()
     }
 }
