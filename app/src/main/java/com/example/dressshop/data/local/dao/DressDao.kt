@@ -16,5 +16,5 @@ interface DressDao {
     fun getDressById(dressId: Int): DressEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveAllDresses(list: List<DressEntity>)
+    suspend fun saveAllDresses(list: List<DressEntity>)
 }

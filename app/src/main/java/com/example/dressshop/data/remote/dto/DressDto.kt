@@ -3,9 +3,9 @@ package com.example.dressshop.data.remote.dto
 import com.example.dressshop.data.local.DressEntity
 import com.example.dressshop.domain.model.Dress
 
-data class DressDto(
-    val dressDto: List<DressDtoItem?>? = null
-)
+//data class DressDto(
+//    val dressDto: List<DressDtoItem?>? = null
+//)
 
 data class DressDtoItem(
     val seller: Boolean? = null,

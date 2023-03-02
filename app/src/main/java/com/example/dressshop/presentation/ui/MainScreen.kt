@@ -10,9 +10,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.dressshop.presentation.screens.AddDressScreen
 import com.example.dressshop.presentation.screens.DressDetailScreen
 import com.example.dressshop.presentation.screens.ListDressesScreen
@@ -31,19 +33,23 @@ enum class DressScreen (val title: String) {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainScreen(
-    vm: MainScreenViewModel = hiltViewModel()
+//    vm: MainScreenViewModel = hiltViewModel()
 ) {
 
     val navController = rememberNavController()
 
-    val listDresses: DressUiState by vm.dressUiState.collectAsState()
+//    val listDresses: DressUiState by vm.dressUiState.collectAsState()
 
-    Scaffold(bottomBar = {
+    Scaffold(
+        bottomBar = {
         BottomNavigation() {
+
             listOf(DressScreen.ListDresses, DressScreen.AddDress).forEach { screen ->
                 BottomNavigationItem(
                     selected = false,
-                    onClick = {navController.navigate(screen.name) },
+                    onClick = {
+                        navController.navigate(screen.name)
+                              },
                     label = { Text(text = screen.title) },
                     icon = {}
                 )
@@ -51,10 +57,29 @@ fun MainScreen(
         }
 
     }) {
-        NavHost(navController = navController, startDestination = DressScreen.ListDresses.name) {
-            composable(route = DressScreen.ListDresses.name) { ListDressesScreen(listDresses.itemList) }
-            composable(route = DressScreen.SelectedDress.name) { DressDetailScreen() }
-            composable(route = DressScreen.AddDress.name) { AddDressScreen() }
+        NavHost(
+            navController = navController,
+            startDestination = DressScreen.ListDresses.name) {
+
+            composable(route = DressScreen.ListDresses.name) {
+                ListDressesScreen{
+//                    navController.navigate(DressScreen.SelectedDress.name)
+                    navController.navigate("dress/${it.id}")
+                }
+            }
+
+            composable(
+//                route = DressScreen.SelectedDress.name,
+                route = "dress/{id}",
+                arguments = listOf(
+                    navArgument("id") { type = NavType.IntType }
+                ),
+            ) {
+                DressDetailScreen()
+            }
+
+            composable(route = DressScreen.AddDress.name) {
+                AddDressScreen() }
         }
     }
 }
