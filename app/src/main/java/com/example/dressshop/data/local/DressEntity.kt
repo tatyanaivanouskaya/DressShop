@@ -18,18 +18,20 @@ data class DressEntity(
     var size: String,
     var color: String,
     var url: String,
-){
+    var category: String
+) {
     fun toDress() = Dress(
         id = id,
-    manufacturer = manufacturer,
-    model = model,
-    silhouette = silhouette,
-    sex = sex,
-    fabric = fabric,
-    sleeve = sleeve,
-    city = city,
-    size = size,
-    color = color,
-    url = url,
+        manufacturer = manufacturer,
+        model = model,
+        silhouette = silhouette,
+        sex = sex,
+        fabric = fabric,
+        sleeve = sleeve,
+        city = city,
+        size = size,
+        color = color,
+        url = url,
+        category = category
     )
 }

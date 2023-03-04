@@ -15,6 +15,7 @@ data class Dress(
     var size: String = "",
     var color: String = "",
     var url: String = "",
+    var category: String = ""
 ) {
     fun toDressDto() = DressDtoItem(
         id = id,
@@ -27,6 +28,7 @@ data class Dress(
         city = city,
         size = size,
         color = color,
-        url = url
+        url = url,
+        category = category
     )
 }

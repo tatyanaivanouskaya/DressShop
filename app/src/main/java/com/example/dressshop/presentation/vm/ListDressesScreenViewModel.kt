@@ -16,40 +16,35 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-data class DressUiState(
+data class ListDressesUiState(
     val itemList: List<Dress> = listOf()
 )
 
 @HiltViewModel
-class MainScreenViewModel @Inject constructor(
+class ListDressesScreenViewModel @Inject constructor(
     private val dressRepository: DressRepository
 ) : ViewModel() {
 
-    val dressUiState: StateFlow<DressUiState> = dressRepository.getDressesFromDB().map {
-        DressUiState(it.map { dressEntity -> dressEntity .toDress() })
+    val listDressesUiState: StateFlow<ListDressesUiState> = dressRepository.getDressesFromDB().map {
+        ListDressesUiState(it.map { dressEntity -> dressEntity .toDress() })
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = DressUiState()
+        initialValue = ListDressesUiState()
     )
 
     init {
         loadDressesList()
     }
 
-    fun loadDressesList() {
+    private fun loadDressesList() {
         viewModelScope.launch {
             val result = dressRepository.getDressesList()
             if (result.isSuccessful) {
-                Log.d("gg", "dm:: isSuccessful = ${result.isSuccessful}")
                 val listDressDtoItem: List<DressDtoItem> = result.body() ?: emptyList()
 
-                Log.d("gg", "dm:: isSuccessful = ${result.isSuccessful}")
-
-
-                if (!listDressDtoItem.isNullOrEmpty()) {
-                    val listDressEntity = listDressDtoItem.filterNotNull()
-                    dressRepository.loadDressesIntoDB(listDressEntity.map { it.toDressEntity() })
+                if (listDressDtoItem.isNotEmpty()) {
+                    dressRepository.loadDressesIntoDB(listDressDtoItem.map { it.toDressEntity() })
                 }
             } else{
                 Log.d("gg", "dm:: code = ${result.code()}")

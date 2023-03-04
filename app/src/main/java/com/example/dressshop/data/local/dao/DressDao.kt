@@ -13,7 +13,7 @@ interface DressDao {
     fun getAllDresses(): Flow<List<DressEntity>>
 
     @Query("SELECT * FROM dresses WHERE id = :dressId")
-    fun getDressById(dressId: Int): DressEntity
+    fun getDressById(dressId: Int): Flow<DressEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAllDresses(list: List<DressEntity>)

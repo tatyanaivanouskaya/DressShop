@@ -2,7 +2,6 @@ package com.example.dressshop.domain.repository
 
 import com.example.dressshop.data.local.DressEntity
 import com.example.dressshop.data.remote.dto.DressDtoItem
-import com.example.dressshop.domain.model.Dress
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -14,7 +13,7 @@ interface DressRepository {
 
     fun getDressesFromDB(): Flow<List<DressEntity>>
 
-    fun getDressInfo(id: Int): Dress
+    fun getDressInfo(id: Int): Flow<DressEntity>
 
-    fun saveDress(dress: Dress)
+    //fun saveDress(dress: Dress)
 }

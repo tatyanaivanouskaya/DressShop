@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,23 +21,21 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.dressshop.domain.model.Dress
-import com.example.dressshop.presentation.vm.DressUiState
-import com.example.dressshop.presentation.vm.MainScreenViewModel
+import com.example.dressshop.presentation.vm.ListDressesUiState
+import com.example.dressshop.presentation.vm.ListDressesScreenViewModel
 
 @Composable
 fun ListDressesScreen(
-    vm: MainScreenViewModel = hiltViewModel(),
-            clickMachine: (Dress) -> Unit
-//    list: List<Dress>
+    vm: ListDressesScreenViewModel = hiltViewModel(),
+    clickMachine: (Dress) -> Unit
 ) {
 
-    val list : DressUiState by vm.dressUiState.collectAsState()
+    val list: ListDressesUiState by vm.listDressesUiState.collectAsState()
 
-
-    LazyColumn(){
-        items(list.itemList){dress->
-            DressBox(dress){
-                Log.d("ListDressesScreen", "dm:: clicked dress Id = ${it.id}" )
+    LazyColumn() {
+        items(list.itemList) { dress ->
+            DressBox(dress) {
+                Log.d("ListDressesScreen", "dm:: clicked dress Id = ${it.id}")
                 clickMachine.invoke(it)
             }
         }
@@ -48,7 +45,8 @@ fun ListDressesScreen(
 @Composable
 fun DressBox(
     dress: Dress,
-    clickMachine: (Dress) -> Unit) {
+    clickMachine: (Dress) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,9 +54,9 @@ fun DressBox(
             .height(200.dp)
             .clickable {
                 clickMachine(dress)
-                       },
+            },
 
-    ) {
+        ) {
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.BottomStart
@@ -69,7 +67,7 @@ fun DressBox(
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
 
-                )
+            )
             Text(
                 text = "${dress.manufacturer} ${dress.model}",
                 modifier = Modifier

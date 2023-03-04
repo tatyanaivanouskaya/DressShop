@@ -3,10 +3,6 @@ package com.example.dressshop.data.remote.dto
 import com.example.dressshop.data.local.DressEntity
 import com.example.dressshop.domain.model.Dress
 
-//data class DressDto(
-//    val dressDto: List<DressDtoItem?>? = null
-//)
-
 data class DressDtoItem(
     val seller: Boolean? = null,
     val typeOfProduct: String? = null,
@@ -50,7 +46,8 @@ data class DressDtoItem(
         city = city ?: "",
         size = size ?: "",
         color = color ?: "",
-        url = url ?: "no image"
+        url = url ?: "no image",
+        category = category ?: ""
     )
 
     fun toDressEntity() = DressEntity(
@@ -65,6 +62,7 @@ data class DressDtoItem(
         size = size ?: "",
         color = color ?: "",
         url = url ?: "",
+        category = category ?: ""
     )
 }
 
