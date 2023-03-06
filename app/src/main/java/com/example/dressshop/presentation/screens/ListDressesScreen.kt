@@ -27,7 +27,7 @@ import com.example.dressshop.presentation.vm.ListDressesScreenViewModel
 @Composable
 fun ListDressesScreen(
     vm: ListDressesScreenViewModel = hiltViewModel(),
-    clickMachine: (Dress) -> Unit
+    clickDress: (Dress) -> Unit
 ) {
 
     val list: ListDressesUiState by vm.listDressesUiState.collectAsState()
@@ -36,7 +36,7 @@ fun ListDressesScreen(
         items(list.itemList) { dress ->
             DressBox(dress) {
                 Log.d("ListDressesScreen", "dm:: clicked dress Id = ${it.id}")
-                clickMachine.invoke(it)
+                clickDress.invoke(it)
             }
         }
     }
