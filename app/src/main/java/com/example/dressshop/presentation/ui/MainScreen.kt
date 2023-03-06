@@ -74,7 +74,6 @@ fun MainScreen() {
                 ) {
                     DressDetailScreen()
                 }
-
                 composable(route = DressScreen.AddDress.name) {
                     AddDressScreen(){
                         navController.navigate(DressScreen.ListDresses.name)
