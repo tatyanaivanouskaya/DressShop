@@ -3,6 +3,7 @@ package com.example.dressshop.domain.repository
 import com.example.dressshop.data.local.DressEntity
 import com.example.dressshop.data.local.dao.DressDao
 import com.example.dressshop.data.remote.dto.DressDtoItem
+import com.example.dressshop.data.remote.repository.DressRequestModel
 import com.example.dressshop.data.remote.repository.RetrofitApiService
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
@@ -23,7 +24,8 @@ class DressRepositoryImpl @Inject constructor(
 
     override fun getDressInfo(id: Int): Flow<DressEntity> = dressDao.getDressById(id)
 
-    //override fun saveDress(dress: Dress) {
-    //    TODO("Not yet implemented")
-    //}
+    override suspend fun saveDress(dressRequestModel: DressRequestModel) =
+        service.saveDress(dressRequestModel = dressRequestModel)
+
+
 }
